@@ -6,7 +6,8 @@ import java.sql.SQLException;
 
 public class Conexao {
 
-    private static final String url = "jdbc:postgresql://localhost:5433/dac-jsf-docker";
+    //private static final String url = "jdbc:postgresql://localhost:5433/dac-jsf-docker";
+    private static final String url = "jdbc:postgresql://host-banco:5432/dac-jsf-docker";
     private static final String password = "dac";
     private static final String user = "postgres";
 
