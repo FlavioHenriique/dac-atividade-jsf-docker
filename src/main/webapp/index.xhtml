@@ -3,10 +3,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Atividade - JSF e docker</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <center>
+            <h2>Atividade avaliativa</h2>
+
+            <h:form>
+                Digite o email<br></br>
+                <h:inputText  value="#{controladorContato.autenticacao.email}"/><br></br>
+                Digite a senha<br></br>
+                <h:inputSecret value="#{controladorContato.autenticacao.senha}"/><br></br><br></br>
+                <h:commandButton value="Login" action="#{controladorContato.autenticar()}" />
+
+                <br></br><br></br>
+                <h2>Cadastre-se</h2>
+                Digite o nome<br></br>
+                <h:inputText value="#{controladorContato.contato.nome}"/><br></br>
+                Digite a data de nascimento<br></br>
+                <h:inputText value="#{controladorContato.contato.dataNascimento}" converter="convert.Data"/><br></br>
+                Digite o email<br></br>
+                <h:inputText value="#{controladorContato.contato.email}"/><br></br>
+                Digite a senha<br></br>
+                <h:inputSecret value="#{controladorContato.contato.senha}"/><br></br>
+                Digite o telefone<br></br>
+                <h:inputText value="#{controladorContato.contato.telefone}"/><br></br>
+                
+                <br></br>
+
+                <h:commandButton value="Cadastrar" action="#{controladorContato.cadastrar()}"/>
+            </h:form>
+        </center>
+
     </h:body>
 </html>
 
