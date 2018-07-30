@@ -71,7 +71,7 @@ public class ContatoDAO {
 
     public Contato buscar(String email) {
 
-        String sql = "SELECT * FROM CONTATO WHERE EMail = ?;";
+        String sql = "SELECT * FROM CONTATO WHERE Email = ?;";
         PreparedStatement stmt;
         try {
             stmt = conn.prepareStatement(sql);
@@ -84,6 +84,7 @@ public class ContatoDAO {
                 c.setNome(rs.getString("nome"));
                 c.setSenha(rs.getString("senha"));
                 c.setTelefone(rs.getString("telefone"));
+                System.out.println(c.toString());
                 return c;
             }
 

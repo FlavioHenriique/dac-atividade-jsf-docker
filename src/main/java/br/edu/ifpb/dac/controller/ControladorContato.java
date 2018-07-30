@@ -2,16 +2,20 @@ package br.edu.ifpb.dac.controller;
 
 import br.edu.ifpb.dac.model.Contato;
 import br.edu.ifpb.dac.service.ContatoService;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 @Named
-@RequestScoped
-public class ControladorContato {
+@SessionScoped
+public class ControladorContato implements Serializable {
 
     private ContatoService service = new ContatoService();
     private Contato autenticacao = new Contato();
+    private Contato buscado = new Contato();
     private Contato contato = new Contato();
 
     public String autenticar() {
@@ -25,6 +29,22 @@ public class ControladorContato {
 
     public String cadastrar() {
         this.service.salvar(contato);
+        return null;
+    }
+
+    public void buscaPorNome(String nome) {
+        this.buscado = this.service.buscaNome(nome);
+    }
+
+    public List<Contato> ordemAlfabetica() {
+        return this.service.ordemAlfabetica();
+    }
+
+    public String excluir(Contato c) {
+        this.service.deletar(c.getEmail());
+        if (c.getEmail().equals(this.contato.getEmail())) {
+            return logoff();
+        }
         return null;
     }
 
@@ -42,6 +62,14 @@ public class ControladorContato {
 
     public void setAutenticacao(Contato autenticacao) {
         this.autenticacao = autenticacao;
+    }
+
+    public Contato getBuscado() {
+        return buscado;
+    }
+
+    public void setBuscado(Contato buscado) {
+        this.buscado = buscado;
     }
 
     public String logoff() {

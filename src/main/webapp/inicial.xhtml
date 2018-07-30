@@ -9,6 +9,31 @@
         <h2>Bem vindo, #{controladorContato.contato.nome} !</h2>
         <h:form>
             <h:commandButton value="Sair" action="#{controladorContato.logoff()}"/>
+            <br></br><br></br><br></br>
+            Digite o nome <br></br>
+            <h:inputText binding="#{buscaNome}"/>
+            <h:commandButton action="#{controladorContato.buscaPorNome(buscaNome.value)}"
+                             value="Buscar por nome"/>
+            
+            <h:dataTable var="cont" value="#{controladorContato.buscado}">
+                <h:column>#{cont.nome}</h:column>
+                <h:column>#{cont.email}</h:column>
+                <h:column>#{cont.telefone}</h:column>
+            </h:dataTable>
+            
+            <br></br><br></br><br></br>
+            
+            <h3>Listando contatos em ordem alfabética</h3>
+            
+            <h:dataTable var="cont" value="#{controladorContato.ordemAlfabetica()}">
+                <h:column>#{cont.nome}</h:column>
+                <h:column>#{cont.email}</h:column>
+                <h:column>#{cont.telefone}</h:column>
+                <h:column>
+                    <h:commandButton value="X" action="#{controladorContato.excluir(cont)}"/>
+                </h:column>
+            </h:dataTable>
+            
         </h:form>
     </h:body>
 </html>
