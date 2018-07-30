@@ -3,6 +3,7 @@ package br.edu.ifpb.dac.service;
 import br.edu.ifpb.dac.dao.ContatoDAO;
 import br.edu.ifpb.dac.model.Contato;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,5 +48,9 @@ public class ContatoService {
     
     public Contato buscar(String email){
         return this.dao.buscar(email);
+    }
+    
+    public HashMap<String,List<Contato>> ordernarPorLetra(){
+        return this.dao.ordenarLetras();
     }
 }

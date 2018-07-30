@@ -4,6 +4,7 @@ import br.edu.ifpb.dac.model.Contato;
 import br.edu.ifpb.dac.service.ContatoService;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
@@ -17,6 +18,7 @@ public class ControladorContato implements Serializable {
     private Contato autenticacao = new Contato();
     private Contato buscado = new Contato();
     private Contato contato = new Contato();
+    private HashMap<String, List<Contato>> mapa = new HashMap<>();
 
     public String autenticar() {
         if (service.autenticar(autenticacao.getEmail(), autenticacao.getSenha())) {
@@ -45,6 +47,22 @@ public class ControladorContato implements Serializable {
         if (c.getEmail().equals(this.contato.getEmail())) {
             return logoff();
         }
+        return null;
+    }
+
+    public List<String> letras() {
+        this.mapa = this.service.ordernarPorLetra();
+        return new ArrayList<>(this.mapa.keySet());
+
+    }
+
+    public HashMap<String, List<Contato>> getMapa() {
+        return mapa;
+    }
+
+    public String atualizar() {
+        this.service.atualizar(this.contato);
+        this.contato = this.service.buscar(contato.getEmail());
         return null;
     }
 

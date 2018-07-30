@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Tela inicial</title>
     </h:head>
@@ -9,22 +10,47 @@
         <h2>Bem vindo, #{controladorContato.contato.nome} !</h2>
         <h:form>
             <h:commandButton value="Sair" action="#{controladorContato.logoff()}"/>
+            <br></br>
+
+            <table width="100%">
+                <tr>
+                    <td>
+                        Digite o nome <br></br>
+                        <h:inputText binding="#{buscaNome}"/>
+                        <h:commandButton action="#{controladorContato.buscaPorNome(buscaNome.value)}"
+                                         value="Buscar por nome"/>
+
+                        <h:dataTable var="cont" value="#{controladorContato.buscado}">
+                            <h:column>#{cont.nome}</h:column>
+                            <h:column>#{cont.email}</h:column>
+                            <h:column>#{cont.telefone}</h:column>
+                        </h:dataTable>
+
+                    </td>
+                    <td>
+                        <h3>Atualizar seu perfil</h3>
+                        <br></br>
+                        Digite o nome<br></br>
+                        <h:inputText value="#{controladorContato.contato.nome}"/><br></br>
+                        Digite a data de nascimento<br></br>
+                        <h:inputText value="#{controladorContato.contato.dataNascimento}" converter="convert.Data"/><br></br>
+                        
+                        Digite a senha<br></br>
+                        <h:inputSecret value="#{controladorContato.contato.senha}"/><br></br>
+                        Digite o telefone<br></br>
+                        <h:inputText value="#{controladorContato.contato.telefone}"/><br></br>
+
+                        <br></br>
+
+                        <h:commandButton value="Atualizar" action="#{controladorContato.atualizar()}"/>
+                    </td>
+                </tr>
+            </table>
+
             <br></br><br></br><br></br>
-            Digite o nome <br></br>
-            <h:inputText binding="#{buscaNome}"/>
-            <h:commandButton action="#{controladorContato.buscaPorNome(buscaNome.value)}"
-                             value="Buscar por nome"/>
-            
-            <h:dataTable var="cont" value="#{controladorContato.buscado}">
-                <h:column>#{cont.nome}</h:column>
-                <h:column>#{cont.email}</h:column>
-                <h:column>#{cont.telefone}</h:column>
-            </h:dataTable>
-            
-            <br></br><br></br><br></br>
-            
+
             <h3>Listando contatos em ordem alfabética</h3>
-            
+
             <h:dataTable var="cont" value="#{controladorContato.ordemAlfabetica()}">
                 <h:column>#{cont.nome}</h:column>
                 <h:column>#{cont.email}</h:column>
@@ -33,7 +59,18 @@
                     <h:commandButton value="X" action="#{controladorContato.excluir(cont)}"/>
                 </h:column>
             </h:dataTable>
-            
+
+            <h2>Ordenando por letras</h2>
+            <h:dataTable var="letra" value="#{controladorContato.letras()}">
+                <h:column>Letra: #{letra}</h:column>
+                <h:column>
+                    <h:dataTable var="cont" value="#{controladorContato.mapa[letra]}">
+                        <h:column>#{cont.nome}</h:column>
+                        <h:column>#{cont.email}</h:column>
+                        <h:column>#{cont.telefone}</h:column>
+                    </h:dataTable>
+                </h:column>
+            </h:dataTable>
         </h:form>
     </h:body>
 </html>
